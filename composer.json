@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "epmnzava/audit_trails": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.8",
         "laravel/passport": "^11.8",
@@ -31,7 +32,11 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "App/Helper/functions.php"
+
+          ]
     },
     "scripts": {
         "post-autoload-dump": [
