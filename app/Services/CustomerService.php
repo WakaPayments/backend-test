@@ -10,10 +10,10 @@ use Illuminate\Validation\Rules\Password;
 
 class CustomerService
 {
-    protected $event="CustomerService";
-    protected $class="CustomerService";
+    protected $event = "CustomerService";
+    protected $class = "CustomerService";
 
-       //HIZI NIMEJARIBU KU COPY KWENYE REGISTRATION MAANA NASHINDWA KU RETURN DATA ZA KU UPDATE
+    //HIZI NIMEJARIBU KU COPY KWENYE REGISTRATION MAANA NASHINDWA KU RETURN DATA ZA KU UPDATE
     // public function createCustomer(Request $request)
     // {
     //     // Validate input
@@ -75,8 +75,10 @@ class CustomerService
     //     }
     // }
 
-    public function updateCustomer(Request $request, $id)
+    public function updateCustomer(Request $request)
     {
+
+        $id = Auth::user()->id;
         $user = User::find($id);
         if (!$user) {
             $res = getResponse(
@@ -112,8 +114,10 @@ class CustomerService
         return response()->json($res);
     }
 
-    public function getCustomer(Request $request, $id)
+    public function getCustomer(Request $request)
     {
+        $id = Auth::user()->id;
+
         $user = User::find($id);
         if (!$user) {
             $res = getResponse(
@@ -140,5 +144,4 @@ class CustomerService
 
         return response()->json($res);
     }
-
 }
