@@ -19,14 +19,10 @@ class AuthController extends Controller
     }
     public function authentication(Request $request)
     {
-        switch ($request->method)
-        {
+        switch ($request->method) {
             case 'registration':
                 return $this->authentication_service->registration($request);
                 break;
-        }
-        switch ($request->method)
-        {
             case 'login':
                 return $this->authentication_service->login($request);
                 break;
