@@ -13,7 +13,6 @@ class CustomerService
     protected $event="CustomerService";
     protected $class="CustomerService";
 
-       //HIZI NIMEJARIBU KU COPY KWENYE REGISTRATION MAANA NASHINDWA KU RETURN DATA ZA KU UPDATE
     // public function createCustomer(Request $request)
     // {
     //     // Validate input
@@ -90,7 +89,7 @@ class CustomerService
             return response()->json($res, 404);
         }
 
-        // Update the user 
+        // Update the user
         $user->name = $request->name;
         $user->email = $request->email;
         $user->dob = $request->dob;
