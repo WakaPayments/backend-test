@@ -23,6 +23,7 @@ Route::post('/v1/auth', [AuthController::class, 'authentication']);
 
 Route::middleware(['api-auth:customerapp_api'])->group(function () {
     Route::post('/v1/customer', [CustomerController::class, 'api']);
+    Route::post('/v1/transaction', [TransactionController::class, 'payments']);
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

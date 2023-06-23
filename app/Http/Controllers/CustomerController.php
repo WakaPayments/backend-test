@@ -11,19 +11,20 @@ class CustomerController extends Controller
 
     public function __construct()
     {
-        $this->customer_service=new CustomerService;
-
+        $this->customer_service = new CustomerService;
     }
     public function api(Request $request)
     {
         switch ($request->method) {
             case 'update':
-                return $this->customer_service->updateCustomer($request, $request->id);
+                return $this->customer_service->updateCustomer($request);
                 break;
-            case 'get':
-                return $this->customer_service->getCustomer($request, $request->id);
+            case 'get_customer':
+                return $this->customer_service->getCustomer($request);
+                break;
+            case 'make_payment':
+                return $this->customer_service->makePayment($request);
                 break;
         }
     }
 }
-

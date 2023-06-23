@@ -103,7 +103,10 @@ use Illuminate\Contracts\Encryption\DecryptException;
             return json_encode($res);
 
             $userExists = User::where('msisdn', $request->msisdn)->exists();
-            if (!$userExists) {
+            if (!$userExists)
+
+            {
+
             $res = getResponse(
                 "01",
                 [],
@@ -117,13 +120,13 @@ use Illuminate\Contracts\Encryption\DecryptException;
             try {
                 $login_input = ["msisdn" => format_mobile_number($request->msisdn), "password" => base64_decode($request->password)];
 
+               //return json_encode($login_input);
+
                 if (Auth::attempt($login_input)) {
                     // $token = Auth::user()->createToken('wakapay-customer', ['customer'])->accessToken;
                     // $user = User::find(Auth::user()->id);
                     $user = User::find(Auth::user()->id);
                     $token = $user->createToken('wakapay-customer', ['customer'])->accessToken;
-                    $user->last_logon = now();
-                    $user->success_logon_IP = $request->ip();
                     $user->save();
 
                     $res = getResponse(
@@ -167,6 +170,3 @@ use Illuminate\Contracts\Encryption\DecryptException;
 
 
     }
-
-
-?>
