@@ -85,14 +85,12 @@ class CustomerService
     public function makePayment(Request $request)
     {
         $input = [
-            'user_id' => $request->user_id,
             'amount' => $request->amount,
             'payment_method' => $request->payment_method,
             'receipt' => $request->receipt,
         ];
 
         $rules = [
-            'user_id' => 'required|exists:users,id',
             'amount' => 'required|numeric',
             'payment_method' => 'required|string',
             'receipt' => 'required|string',
