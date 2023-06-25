@@ -25,6 +25,13 @@ class CustomerController extends Controller
             case 'make_payment':
                 return $this->customer_service->makePayment($request);
                 break;
+                case 'customer_transactions': // New case for customer_transactions
+                    return $this->customer_service->customer_transactions($request);
+                    break;
+                case 'customer_transaction': // New case for customer_transaction
+                    return $this->customer_service->customer_transaction($request);
+                    break;
+
         }
     }
 }

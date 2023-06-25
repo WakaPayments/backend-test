@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\UserSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -37,6 +38,25 @@ class CustomerService
         $user->msisdn = $request->msisdn;
         $user->country = $request->country;
         $user->save();
+
+               // Check if the user settings exist
+               $userSettings = UserSetting::where('user_id', $id)->first();
+
+               if ($userSettings) {
+                   // User settings exist, update 
+                   $userSettings->language = $request->language;
+                   $userSettings->notifyonsms = $request->notifyonsms;
+                   $userSettings->notifyonemail = $request->notifyonemail;
+                   $userSettings->save();
+               } else {
+                   // User settings don't exist, create
+                   $userSettings = new UserSetting();
+                   $userSettings->user_id = $id;
+                   $userSettings->language = $request->language;
+                   $userSettings->notifyonsms = $request->notifyonsms;
+                   $userSettings->notifyonemail = $request->notifyonemail;
+                   $userSettings->save();
+               }
 
         $res = getResponse(
             "00",
@@ -124,4 +144,60 @@ class CustomerService
 
         return response()->json($res);
     }
+
+    public function customer_transactions(Request $request)
+    {
+        $userId = Auth::user()->id;
+
+        // Get all transactions for the customer
+        $transactions = Transaction::where('user_id', $userId)->get();
+
+        $res = getResponse(
+            "00",
+            [
+                "transactions" => $transactions
+            ],
+            "Transactions retrieved successfully",
+            $request,
+            $this->event,
+            "customer_transactions"
+        );
+        return response()->json($res);
+    }
+
+    public function customer_transaction(Request $request)
+    {
+        $receipt = $request->receipt;
+        $userId = Auth::user()->id;
+
+        // Get the transaction for the customer with the given receipt
+        $transaction = Transaction::where('user_id', $userId)->where('receipt', $receipt)->first();
+
+
+        if (!$transaction) {
+            $res = getResponse(
+                "01",
+                [],
+                "Transaction not found",
+                $request,
+                $this->event,
+                "customer_transaction"
+            );
+            return response()->json($res, 404);
+        }
+
+        $res = getResponse(
+            "00",
+            [
+                "transaction" => $transaction
+            ],
+            "Transaction retrieved successfully",
+            $request,
+            $this->event,
+            "customer_transaction"
+        );
+
+        return response()->json($res);
+    }
+
 }
