@@ -40,23 +40,23 @@ class CustomerService
         $user->save();
 
                // Check if the user settings exist
-               $userSettings = UserSetting::where('user_id', $id)->first();
+            //    $userSettings = UserSetting::where('user_id', $id)->first();
 
-               if ($userSettings) {
-                   // User settings exist, update 
-                   $userSettings->language = $request->language;
-                   $userSettings->notifyonsms = $request->notifyonsms;
-                   $userSettings->notifyonemail = $request->notifyonemail;
-                   $userSettings->save();
-               } else {
-                   // User settings don't exist, create
-                   $userSettings = new UserSetting();
-                   $userSettings->user_id = $id;
-                   $userSettings->language = $request->language;
-                   $userSettings->notifyonsms = $request->notifyonsms;
-                   $userSettings->notifyonemail = $request->notifyonemail;
-                   $userSettings->save();
-               }
+            //    if ($userSettings) {
+            //        // User settings exist, update
+            //        $userSettings->language = $request->language;
+            //        $userSettings->notifyonsms = $request->notifyonsms;
+            //        $userSettings->notifyonemail = $request->notifyonemail;
+            //        $userSettings->save();
+            //    } else {
+            //        // User settings don't exist, create
+            //        $userSettings = new UserSetting();
+            //        $userSettings->user_id = $id;
+            //        $userSettings->language = $request->language;
+            //        $userSettings->notifyonsms = $request->notifyonsms;
+            //        $userSettings->notifyonemail = $request->notifyonemail;
+            //        $userSettings->save();
+            //    }
 
         $res = getResponse(
             "00",
